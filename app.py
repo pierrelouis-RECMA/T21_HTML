@@ -5,7 +5,7 @@ from flask import Flask, render_template_string, request
 
 # Import de ta fonction personnalisée
 # Assure-toi que ton fichier s'appelle bien generate_html.py
-from generate_html import build_report_html 
+from generate_html.py import build_report_html 
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 20 * 1024 * 1024  # Limite à 20 Mo
