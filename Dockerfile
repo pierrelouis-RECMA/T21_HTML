@@ -1,23 +1,21 @@
+# Utilise une image Python légère
 FROM python:3.12-slim
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libxml2-dev libxslt-dev \
-    && rm -rf /var/lib/apt/lists/*
-
+# Définit le dossier de travail
 WORKDIR /app
 
+# Copie d'abord les dépendances pour optimiser le cache
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app.py fill_template.py generate_pptx_v3.py ./
-COPY T21_HK_Agencies_Glass_v13.pptx ./
+# COPIE UNIQUEMENT LES FICHIERS NÉCESSAIRES
+# On ne liste plus generate_pptx_v3.py ici
+COPY app.py .
+COPY generate_html.py .
+COPY fill_template.py .
 
-ENV PORT=10000
-EXPOSE $PORT
+# Si tu as d'autres fichiers indispensables, ajoute-les, 
+# mais retire toute référence à generate_pptx_v3.py
 
-CMD gunicorn app:app \
-    --bind 0.0.0.0:$PORT \
-    --workers 2 \
-    --timeout 120 \
-    --access-logfile - \
-    --error-logfile -
+# Commande de démarrage
+CMD ["gunicorn", "--bind", "0.0.0.0:10000", "app:app"]
