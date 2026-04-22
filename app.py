@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import pandas as pd
 from flask import Flask, abort, jsonify, render_template_string, request, send_file
 
-from generate_pptx_v3 import build_agency_pptx
+from generate_html import build_report_html
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 20 * 1024 * 1024
