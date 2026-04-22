@@ -13,7 +13,7 @@ Usage standalone :
     python generate_html.py <excel> <output.html>
 
 Depuis app.py :
-    from generate_html import build_report_html
+    from generate_html.py import build_report_html
     html = build_report_html(df)
 """
 
